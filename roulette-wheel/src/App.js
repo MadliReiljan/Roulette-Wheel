@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getText, deleteText } from './api/api'
+import { getText, deleteText } from './api/api';
 import OptionForm from './components/OptionForm';
 import OptionList from './components/OptionList';
 
@@ -17,16 +17,16 @@ const App = () => {
 
   const handleDelete = async (id) => {
     await deleteText(id);
-    setOptions(options.filter((option) => option._id !== id));
+    setOptions(options.filter((option) => option._id !== id)); // Update state after deletion
   };
 
   const handleSave = () => {
     setSelectedOption(null);
-    getText().then(setOptions);
+    getText().then(setOptions); // Refresh the list of options after save
   };
 
   const handleSelect = (option) => {
-    setSelectedOption(option);
+    setSelectedOption(option); // Set the selected option for editing
   };
 
   return (

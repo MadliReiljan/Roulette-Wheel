@@ -1,24 +1,25 @@
 const Wheel = require('../models/wheel');
 
 const createText = async (req, res) => {
-    const { text } = req.body;
-    try{
-        const newText = new Wheel({ text });
-        await newText.save();
-        res.status(201).json(newText);
-    } catch (error) {
-        res.status(500).json({message: error.message});
-    }
-}
+  const { text } = req.body;
+  try {
+    const newText = new Wheel({ text });
+    await newText.save();
+    res.status(201).json(newText); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 const getText = async (req, res) => {
-    try {
-      const text = await Wheel.find();
-      res.status(200).json(text);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  };
+  try {
+    const text = await Wheel.find();
+    res.status(200).json(text); 
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
   
   const updateText = async (req, res) => {
     const { id } = req.params;
