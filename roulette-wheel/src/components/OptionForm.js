@@ -6,7 +6,7 @@ const OptionForm = ({ selectedOption, onSave }) => {
 
   useEffect(() => {
     if (selectedOption) {
-      setText(selectedOption.text); // Pre-fill form if editing an option
+      setText(selectedOption.text); 
     }
   }, [selectedOption]);
 
@@ -18,29 +18,51 @@ const OptionForm = ({ selectedOption, onSave }) => {
     e.preventDefault();
 
     if (selectedOption) {
-      // If we are updating an existing option
       await updateText(selectedOption._id, text);
     } else {
-      // If we are creating a new option
       await createText(text);
     }
 
-    setText(''); // Clear the input
-    onSave(); // Trigger the onSave callback to refresh the options list
+    setText(''); 
+    onSave(); 
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={styles.form}>
       <input
         type="text"
         value={text}
         onChange={handleChange}
         placeholder="Enter new option"
         required
+        style={styles.input}
       />
-      <button type="submit">{selectedOption ? 'Update' : 'Add'} Option</button>
     </form>
   );
+};
+
+const styles = {
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '20px',
+    maxWidth: '200px',
+    margin: '0 auto',
+    width: '100%',
+  },
+  input: {
+    width: '100%',
+    padding: '12px 16px',
+    fontSize: '18px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    outline: 'none',
+    transition: 'border-color 0.3s ease',
+  },
+  inputFocus: {
+    borderColor: '#007BFF',
+  },
 };
 
 export default OptionForm;
