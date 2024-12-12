@@ -37,6 +37,11 @@ const OptionForm = ({ selectedOption, onSave }) => {
         required
         style={styles.input}
       />
+      <button 
+        type="submit" 
+        style={styles.button}>
+        Add
+      </button>
     </form>
   );
 };
@@ -49,7 +54,7 @@ const styles = {
     padding: '20px',
     maxWidth: '200px',
     margin: '0 auto',
-    width: '100%',
+    width: '90%',
   },
   input: {
     width: '100%',
@@ -59,9 +64,21 @@ const styles = {
     border: '1px solid #ccc',
     outline: 'none',
     transition: 'border-color 0.3s ease',
+    marginBottom: '10px', 
   },
-  inputFocus: {
-    borderColor: '#007BFF',
+  button: {
+    padding: '12px 24px', 
+    fontSize: '18px', 
+    cursor: 'pointer',
+    backgroundColor: '#007BFF', 
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 123, 255, 0.3)', 
+    transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.3s', 
+  },
+  buttonHover: {
+    backgroundColor: '#0056b3',
   },
 };
 

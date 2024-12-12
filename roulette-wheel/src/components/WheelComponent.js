@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Wheel } from 'react-custom-roulette';
 
-const WheelComponent = ({ options }) => {
+const WheelComponent = ({ options, onDelete }) => {
   const [mustSpin, setMustSpin] = useState(false);  
   const [prizeNumber, setPrizeNumber] = useState(0);  
   const [selectedOption, setSelectedOption] = useState('');  
-  
+  const [isWinnerSelected, setIsWinnerSelected] = useState(false);  
+
   const data = options?.map((option) => ({
     option: option.text,
+    _id: option._id,  
   })) || [];
 
   const handleSpinClick = () => {
@@ -16,7 +18,17 @@ const WheelComponent = ({ options }) => {
       setPrizeNumber(newPrizeNumber);
       setMustSpin(true);  
       setSelectedOption('');  
+      setIsWinnerSelected(false); 
     }
+  };
+
+  const handleKeepClick = () => {
+    setIsWinnerSelected(false); 
+  };
+
+  const handleRemoveClick = () => {
+    onDelete(data[prizeNumber]._id);  
+    setIsWinnerSelected(false);  
   };
 
   if (data.length === 0) {
@@ -42,6 +54,7 @@ const WheelComponent = ({ options }) => {
           onStopSpinning={() => {
             setMustSpin(false);
             setSelectedOption(data[prizeNumber].option);  
+            setIsWinnerSelected(true);  
           }} 
           spinDuration={1}  
           outerBorderColor='grey'  
@@ -52,17 +65,21 @@ const WheelComponent = ({ options }) => {
           outerBorderWidth={3} 
         />
 
-        {selectedOption && (
+        {isWinnerSelected && (
           <div style={styles.announcment}>
             <div style={{fontWeight: 'bold'}}>We have a winner!</div>
             <div>{selectedOption}</div>
+            <div style={styles.buttonContainer}>
+              <button onClick={handleKeepClick} style={styles.button}>Keep</button>
+              <button onClick={handleRemoveClick} style={styles.button}>Remove</button>
+            </div>
           </div>
         )}
       </div>
 
       <div style={{ marginTop: '20px' }}>
         <button onClick={handleSpinClick} style={styles.button}>
-        Spin
+          Spin
         </button>
       </div>
     </div>
@@ -70,34 +87,35 @@ const WheelComponent = ({ options }) => {
 };
 
 const styles = {
-    announcment: {
-      position: 'absolute',
-      top: '50%', 
-      left: '50%',
-      transform: 'translate(-50%, -50%)', 
-      padding: '10px 20px',
-      backgroundColor: 'white',  
-      border: '1px solid #ddd',
-      borderRadius: '8px',
-      fontSize: '20px',
-      zIndex: 10,  
-    },
-    button: {
-      padding: '12px 24px', 
-      fontSize: '18px', 
-      cursor: 'pointer',
-      backgroundColor: '#007BFF', 
-      color: 'white',
-      border: 'none',
-      borderRadius: '8px',
-      boxShadow: '0 4px 8px rgba(0, 123, 255, 0.3)', 
-      transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.3s', 
-    },
-    buttonHover: {
-      backgroundColor: '#0056b3', 
-      transform: 'scale(1.05)', 
-      boxShadow: '0 6px 12px rgba(0, 123, 255, 0.4)',
-    },
-  };
+  announcment: {
+    position: 'absolute',
+    top: '50%', 
+    left: '50%',
+    transform: 'translate(-50%, -50%)', 
+    padding: '10px 20px',
+    backgroundColor: 'white',  
+    border: '1px solid #ddd',
+    borderRadius: '8px',
+    fontSize: '20px',
+    zIndex: 10,
+  },
+  buttonContainer: {
+    display: 'flex',
+    gap: '10px',
+    justifyContent: 'center',
+    marginTop: '10px'
+  },
+  button: {
+    padding: '12px 24px', 
+    fontSize: '18px', 
+    cursor: 'pointer',
+    backgroundColor: '#007BFF', 
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    boxShadow: '0 4px 8px rgba(0, 123, 255, 0.3)', 
+    transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.3s', 
+  },
+};
 
 export default WheelComponent;

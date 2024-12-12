@@ -53,6 +53,7 @@ const App = () => {
             mustSpin={mustSpin}
             options={options} 
             setMustSpin={setMustSpin} 
+            onDelete={handleDelete} 
           />
         </div>
 
