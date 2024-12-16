@@ -6,7 +6,9 @@ const OptionForm = ({ selectedOption, onSave }) => {
 
   useEffect(() => {
     if (selectedOption) {
-      setText(selectedOption.text); 
+      setText(selectedOption.text); // Populate input with selected option text
+    } else {
+      setText(''); // Clear input when no option is selected
     }
   }, [selectedOption]);
 
@@ -23,8 +25,8 @@ const OptionForm = ({ selectedOption, onSave }) => {
       await createText(text);
     }
 
-    setText(''); 
-    onSave(); 
+    setText(''); // Clear input after submit
+    onSave(); // Notify parent component
   };
 
   return (
@@ -40,7 +42,7 @@ const OptionForm = ({ selectedOption, onSave }) => {
       <button 
         type="submit" 
         style={styles.button}>
-        Add
+        {selectedOption ? 'Update' : 'Add'}
       </button>
     </form>
   );
@@ -64,21 +66,18 @@ const styles = {
     border: '1px solid #ccc',
     outline: 'none',
     transition: 'border-color 0.3s ease',
-    marginBottom: '10px', 
+    marginBottom: '10px',
   },
   button: {
-    padding: '12px 24px', 
-    fontSize: '18px', 
+    padding: '12px 24px',
+    fontSize: '18px',
     cursor: 'pointer',
-    backgroundColor: '#007BFF', 
+    backgroundColor: '#007BFF',
     color: 'white',
     border: 'none',
     borderRadius: '8px',
-    boxShadow: '0 4px 8px rgba(0, 123, 255, 0.3)', 
-    transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.3s', 
-  },
-  buttonHover: {
-    backgroundColor: '#0056b3',
+    boxShadow: '0 4px 8px rgba(0, 123, 255, 0.3)',
+    transition: 'background-color 0.3s, transform 0.2s, box-shadow 0.3s',
   },
 };
 
