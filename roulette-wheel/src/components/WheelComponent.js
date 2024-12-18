@@ -6,11 +6,16 @@ const WheelComponent = ({ options, onDelete }) => {
   const [prizeNumber, setPrizeNumber] = useState(0);
   const [selectedOption, setSelectedOption] = useState('');
   const [isWinnerSelected, setIsWinnerSelected] = useState(false);
-  const [hasSpun, setHasSpun] = useState(false); // New state to track if the wheel has been spun
+  const [hasSpun, setHasSpun] = useState(false);
+
+  const truncateText = (text) => {
+    return text.length > 15 ? text.slice(0, 15) + '...' : text;
+  };
 
   const data = options?.map((option) => ({
-    option: option.text,
+    option: truncateText(option.text), 
     _id: option._id,
+    fontSize: option.text.length > 15 ? 12 : 20, 
   })) || [];
 
   const handleSpinClick = () => {
@@ -20,7 +25,7 @@ const WheelComponent = ({ options, onDelete }) => {
       setMustSpin(true);
       setSelectedOption('');
       setIsWinnerSelected(false);
-      setHasSpun(true); // Set hasSpun to true after the first spin
+      setHasSpun(true);
     }
   };
 
@@ -53,6 +58,7 @@ const WheelComponent = ({ options, onDelete }) => {
           data={data}
           backgroundColors={['#FEADCD', '#FFEC9E', '#7AE7B9', '#5bd2f0', '#b9acf2']}
           textColors={['#000000']}
+          fontSize={20} 
           onStopSpinning={() => {
             setMustSpin(false);
             setSelectedOption(data[prizeNumber].option);
@@ -81,7 +87,7 @@ const WheelComponent = ({ options, onDelete }) => {
 
       <div style={{ marginTop: '20px' }}>
         <button onClick={handleSpinClick} style={styles.button}>
-          {hasSpun ? 'Spin Again' : 'Spin'} {/* Button text changes based on hasSpun */}
+          {hasSpun ? 'Spin Again' : 'Spin'} 
         </button>
       </div>
     </div>
