@@ -33,42 +33,55 @@ const App = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px', backgroundColor: '#FEADCD', minHeight: '100vh' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '20px',
-          border: '2px solid #ccc', 
-          padding: '20px',
-          width: '60rem',
-          height: '40rem',
-          borderRadius: '10px',
-          backgroundColor: 'white'
-        }}
-      >
-
-        <div>
-          <WheelComponent
-            mustSpin={mustSpin}
-            options={options} 
-            setMustSpin={setMustSpin} 
-            onDelete={handleDelete} 
-          />
-        </div>
-
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', backgroundColor: '#FEADCD' }}>
+      {/* Main Content */}
+      <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '20px' }}>
         <div
           style={{
             display: 'flex',
-            flexDirection: 'column',
             justifyContent: 'center',
-            gap: '10px',
+            gap: '20px',
+            border: '2px solid #ccc',
+            padding: '20px',
+            width: '60rem',
+            height: '40rem',
+            borderRadius: '10px',
+            backgroundColor: 'white',
           }}
         >
-          <OptionForm selectedOption={selectedOption} onSave={handleSave} />
-          <OptionList options={options} onDelete={handleDelete} onSelect={handleSelect} />
+          <div>
+            <WheelComponent
+              mustSpin={mustSpin}
+              options={options}
+              setMustSpin={setMustSpin}
+              onDelete={handleDelete}
+            />
+          </div>
+
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              gap: '10px',
+            }}
+          >
+            <OptionForm selectedOption={selectedOption} onSave={handleSave} />
+            <OptionList options={options} onDelete={handleDelete} onSelect={handleSelect} />
+          </div>
         </div>
       </div>
+
+      <footer
+        style={{
+          backgroundColor: '#fff',
+          padding: '10px 0',
+          textAlign: 'center',
+          marginTop: 'auto', 
+        }}
+      >
+        <p style={{ margin: 0, fontSize: '16px', color: '#666' }}>Created 2024 | Madli & Marion | VS23</p>
+      </footer>
     </div>
   );
 };
