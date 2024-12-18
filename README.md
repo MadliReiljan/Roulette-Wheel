@@ -13,7 +13,6 @@ It is implemented in JavaScript and also uses React for the visual side.
 
 ```bash
 git clone https://github.com/MadliReiljan/Roulette-Wheel
-cd aora
 ```
 ### Installation
 
